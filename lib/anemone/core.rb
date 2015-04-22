@@ -50,12 +50,14 @@ module Anemone
       :accept_cookies => false,
       # skip any link with a query string? e.g. http://foo.com/?u=user
       :skip_query_strings => false,
-      # proxy server hostname 
+      # proxy server hostname
       :proxy_host => nil,
       # proxy server port number
       :proxy_port => false,
       # HTTP read timeout in seconds
-      :read_timeout => nil
+      :read_timeout => nil,
+      # basic auth
+      :basic_auth => nil
     }
 
     # Create setter methods for all options to be called from the crawl block
@@ -281,7 +283,7 @@ module Anemone
         false
       end
     end
-    
+
     #
     # Returns +true+ if *link* should not be visited because
     # it has a query string and +skip_query_strings+ is true.

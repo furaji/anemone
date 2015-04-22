@@ -95,6 +95,13 @@ module Anemone
       @opts[:read_timeout]
     end
 
+    #
+    # basic auth
+    #
+    def basic_auth
+      @opts[:basic_auth]
+    end
+
     private
 
     #
@@ -135,7 +142,7 @@ module Anemone
         # format request
         req = Net::HTTP::Get.new(full_path, opts)
         # HTTP Basic authentication
-        req.basic_auth url.user, url.password if url.user
+        req.basic_auth basic_auth[:user], basic_auth[:password] if basic_auth
         response = connection(url).request(req)
         finish = Time.now()
         response_time = ((finish - start) * 1000).round
@@ -169,7 +176,7 @@ module Anemone
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
-      @connections[url.host][url.port] = http.start 
+      @connections[url.host][url.port] = http.start
     end
 
     def verbose?
